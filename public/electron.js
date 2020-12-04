@@ -1,5 +1,4 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { channels } = require('../src/shared/constants');
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
@@ -10,14 +9,17 @@ let mainWindow;
 
 function createWindow() {
     // Create the browser window.
+    // TODO: Update Security of Applicaiton.
+    // The default of contextIsolation is deprecated and will be changing from false to true in a future release of Electron.
+    // See https://github.com/electron/electron/issues/23506 for more information
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         show: false,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false,
-            enableRemoteModule: false,
+            // contextIsolation: false,
+            // enableRemoteModule: false,
             preload: path.join(__dirname, 'preload.js'),
         }
     });
@@ -29,7 +31,7 @@ function createWindow() {
     //         slashes: true
     //     });
 
-    const startUrl = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../../../build/index.html')}`;
+    const startUrl = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, 'index.html')}`;
     mainWindow.loadURL(startUrl);
     // Open the DevTools.
     //mainWindow.webContents.openDevTools();
@@ -70,9 +72,9 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on(channels.APP_INFO, (event) => {
-    event.sender.send(channels.APP_INFO, {
-        appName: app.getName(),
-        appVersion: app.getVersion(),
-    });
-});
+// ipcMain.on(channels.APP_INFO, (event) => {
+//     event.sender.send(channels.APP_INFO, {
+//         appName: app.getName(),
+//         appVersion: app.getVersion(),
+//     });
+// });

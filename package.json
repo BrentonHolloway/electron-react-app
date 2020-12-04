@@ -2,16 +2,32 @@
   "name": "electron-react-app",
   "version": "0.1.0",
   "productName": "Electron React Application",
+  "description": "Electron Application using React as the front end.",
+  "author": {
+    "name": "Brenton Holloway"
+  },
+  "build": {
+    "appId": "electron.react.app",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/logo512.png"
+    }
+  },
   "private": true,
   "home": "./",
-  "main": "./electron/main.js",
+  "homepage": "./",
+  "main": "./public/electron.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.4.0",
     "concurrently": "^5.3.0",
-    "electron": "^11.0.3",
-    "electron-builder": "^22.9.1",
     "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -21,12 +37,14 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "ebuild": "npm run build && node_modules/.bin/build",
-    "dev": "concurrently \"npm start\" \" wait-on http://localhost:3000 && electron .\""
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "dev": "concurrently \"npm run react-start\" \" wait-on http://localhost:3000 && electron .\"",
+    "pack": "electron-builder --dir",
+    "release": "react-build && electron-builder --publish=always",
+    "build": "npm run react-build && electron-builder build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +63,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^11.0.3",
+    "electron-builder": "^22.9.1"
   }
 }
