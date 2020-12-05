@@ -31,7 +31,7 @@ function createWindow() {
     //         slashes: true
     //     });
 
-    const startUrl = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, 'index.html')}`;
+    const startUrl = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../index.html')}`;
     mainWindow.loadURL(startUrl);
     // Open the DevTools.
     //mainWindow.webContents.openDevTools();
