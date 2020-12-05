@@ -26,7 +26,7 @@
   "private": true,
   "home": "./",
   "homepage": "./",
-  "main": "./public/electron/main.js",
+  "main": "electron/main.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
@@ -48,7 +48,9 @@
     "dev": "concurrently \"npm run react-start\" \" wait-on http://localhost:3000 && electron .\"",
     "pack": "electron-builder --dir",
     "release": "react-build && electron-builder --publish=always",
-    "build": "npm run react-build && electron-builder build"
+    "makedir": "mkdirp build/src/shared/constants & mkdirp build/electron",
+    "copy-files": "xcopy src\\shared\\constants build\\src\\shared\\constants /e /y & xcopy electron build\\electron /e /y",
+    "build": "npm run react-build && npm run makedir && npm run copy-files && electron-builder build"
   },
   "eslintConfig": {
     "extends": [
@@ -70,6 +72,7 @@
   },
   "devDependencies": {
     "electron": "^11.0.3",
-    "electron-builder": "^22.9.1"
+    "electron-builder": "^22.9.1",
+    "mkdirp": "^1.0.4"
   }
 }
