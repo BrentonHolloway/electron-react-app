@@ -19,8 +19,18 @@
       ]
     },
     "win": {
-      "target": "nsis",
+      "target": {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      },
       "icon": "build/logo512.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "private": true,
@@ -40,10 +50,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "react-start": "react-app-rewired start",
-    "react-build": "react-app-rewired build",
-    "react-test": "react-app-rewired test",
-    "react-eject": "react-app-rewired eject",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
     "dev": "concurrently \"npm run react-start\" \" wait-on http://localhost:3000 && electron .\"",
     "pack": "electron-builder --dir",
     "release": "react-build && electron-builder --publish=always",
@@ -75,7 +85,6 @@
     "electron": "^11.4.3",
     "electron-builder": "^22.10.5",
     "mkdirp": "^1.0.4",
-    "react-app-rewired": "^2.1.8",
     "wait-on": "^5.3.0"
   }
 }
